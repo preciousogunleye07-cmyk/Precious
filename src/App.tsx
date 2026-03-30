@@ -61,15 +61,6 @@ const App = () => {
     },
     {
       id: '02',
-      title: 'Pinterest Clone',
-      tags: ['CSS', 'Grid'],
-      desc: 'Visual layout engine replicating the Pinterest grid system.',
-      img: 'https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=800',
-      url: 'https://moniiv2.github.io/Pinterest-clone/',
-      icon: <Layout size={18} />
-    },
-    {
-      id: '03',
       title: 'Xmas Gen',
       tags: ['DOM', 'Holiday'],
       desc: 'Customizable Christmas card generator for personalized greetings.',
@@ -78,7 +69,7 @@ const App = () => {
       icon: <Gift size={18} />
     },
     {
-      id: '04',
+      id: '03',
       title: 'Rock Paper Scissors',
       tags: ['Logic', 'Game'],
       desc: 'Functional implementation of the classic hand game.',

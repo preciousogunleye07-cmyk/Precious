@@ -28,9 +28,8 @@ import { motion, AnimatePresence, useScroll, useTransform } from 'motion/react';
 const App = () => {
   const [view, setView] = useState('home');
   const [time, setTime] = useState(new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
-  const [copied, setCopied] = useState(false);
 
-  const { scrollY } = useScroll();
+  const { scrollY, scrollYProgress } = useScroll();
   const y1 = useTransform(scrollY, [0, 2000], [0, 400]);
   const y2 = useTransform(scrollY, [0, 2000], [0, -300]);
   const y3 = useTransform(scrollY, [0, 2000], [0, 200]);
@@ -41,13 +40,6 @@ const App = () => {
     }, 1000);
     return () => clearInterval(timer);
   }, []);
-
-  const handleCopyEmail = () => {
-    const email = "bellomonisola867@gmail.com";
-    navigator.clipboard.writeText(email);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
 
   const projects = [
     {
@@ -286,30 +278,29 @@ const App = () => {
       </motion.div>
 
       {/* 8. ACTION FOOTER - Glass CTA */}
-      <motion.div 
+      <motion.a 
+        href="https://forms.gle/sAVAkDVRzfUr3XkK9"
+        target="_blank"
+        rel="noopener noreferrer"
         variants={itemVariants}
-        whileHover={{ scale: 1.01, backgroundColor: "rgba(79, 70, 229, 0.3)", borderColor: "rgba(99, 102, 241, 0.5)" }}
-        onClick={handleCopyEmail}
-        className="col-span-2 md:col-span-4 bg-white/5 backdrop-blur-2xl border border-white/10 rounded-[2.5rem] md:rounded-[3rem] p-6 md:p-10 flex items-center justify-between group cursor-pointer transition-all duration-700 active:scale-[0.98] overflow-hidden relative shadow-2xl"
+        whileHover={{ scale: 1.01, backgroundColor: "rgba(249, 115, 22, 0.15)", borderColor: "rgba(249, 115, 22, 0.4)" }}
+        className="col-span-2 md:col-span-4 bg-white/5 backdrop-blur-2xl border border-white/10 rounded-[2.5rem] md:rounded-[3rem] p-6 md:p-10 flex items-center justify-between group cursor-pointer transition-all duration-700 active:scale-[0.98] overflow-hidden relative shadow-2xl block"
       >
         <div className="flex items-center gap-4 md:gap-8 relative z-10">
           <div className="w-14 h-14 md:w-20 md:h-20 bg-white/10 rounded-full flex items-center justify-center backdrop-blur-md group-hover:bg-white/20 transition-all border border-white/10 shadow-lg">
             <Mail className="w-6 h-6 md:w-7 md:h-7 text-white animate-pulse" />
           </div>
           <div>
-            <span className="text-[9px] md:text-[11px] uppercase font-black tracking-[0.5em] text-slate-400 group-hover:text-indigo-200 mb-1 block">Inquiry</span>
-            <h2 className="text-2xl md:text-5xl font-black text-white tracking-tighter italic leading-none drop-shadow-xl">
-              {copied ? "Address Copied!" : "Let's work."}
+            <span className="text-[9px] md:text-[11px] uppercase font-black tracking-[0.5em] text-slate-400 group-hover:text-orange-400 mb-1 block">Booking</span>
+            <h2 className="text-2xl md:text-5xl font-black text-white tracking-tighter italic leading-none drop-shadow-xl select-none group-hover:text-orange-300 transition-colors">
+              Book me now
             </h2>
           </div>
         </div>
-        <motion.div 
-          animate={copied ? { rotate: 360, backgroundColor: "rgba(16, 185, 129, 0.8)", boxShadow: "0 0 30px #10b981" } : {}}
-          className={`w-12 h-12 md:w-16 md:h-16 rounded-full flex items-center justify-center transition-all duration-700 border border-white/20 ${copied ? '' : 'bg-white/10 group-hover:bg-white'}`}
-        >
-          {copied ? <div className="text-white font-black text-xs">✓</div> : <Plus className="w-6 h-6 md:w-7 md:h-7 text-white group-hover:text-black group-hover:rotate-90 transition-all duration-500" />}
-        </motion.div>
-      </motion.div>
+        <div className="w-12 h-12 md:w-16 md:h-16 rounded-full flex items-center justify-center border border-white/20 bg-white/10 group-hover:bg-orange-500 group-hover:border-orange-500 group-hover:shadow-[0_0_20px_#f97316] transition-all duration-500">
+          <ArrowUpRight className="w-6 h-6 md:w-7 md:h-7 text-white group-hover:text-white transition-all duration-500" />
+        </div>
+      </motion.a>
 
     </motion.div>
   );
@@ -399,6 +390,12 @@ const App = () => {
 
   return (
     <div className="min-h-screen bg-[#030303] text-slate-300 font-sans selection:bg-orange-500/30 flex flex-col items-center justify-center overflow-x-hidden relative py-12 md:py-32 pb-24 md:pb-32">
+      
+      {/* SCROLL PROGRESS BAR */}
+      <motion.div 
+        style={{ scaleX: scrollYProgress }}
+        className="fixed top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-orange-500 via-indigo-600 to-fuchsia-500 origin-left z-50 shadow-[0_1px_8px_rgba(249,115,22,0.5)]"
+      />
       
       <style>{`
         @keyframes orbit {
